@@ -1,4 +1,4 @@
-package com.simple.classbytecode.bytebuddy;
+package com.simple.classbytecode.bytebuddy.base;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.DynamicType;
@@ -6,7 +6,6 @@ import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.implementation.MethodDelegation;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Modifier;

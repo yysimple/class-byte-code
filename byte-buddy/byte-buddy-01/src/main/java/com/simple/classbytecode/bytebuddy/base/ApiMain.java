@@ -1,4 +1,4 @@
-package com.simple.classbytecode.bytebuddy;
+package com.simple.classbytecode.bytebuddy.base;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.FixedValue;
