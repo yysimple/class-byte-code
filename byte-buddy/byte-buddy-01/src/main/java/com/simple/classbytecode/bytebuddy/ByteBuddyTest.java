@@ -27,6 +27,14 @@ public class ByteBuddyTest {
         public static void main(String[] args) {
             System.out.println("helloWorld");
         }
+
+        /**
+         * 下面这个放在就不能在createClassHelloWorld这里被委托
+         * @param arg
+         */
+        public static void main(String arg) {
+            System.out.println("helloWorld");
+        }
     }
 
     @Test
@@ -34,8 +42,9 @@ public class ByteBuddyTest {
         String helloWorld = new ByteBuddy()
                 // 父类的类类型，这里是 Object
                 .subclass(Object.class)
-                // 这里是指定方法
+                // 这里是指定方法,这里回去调用父类的toString，并在该类中生成
                 .method(named("toString"))
+                // 这里会去拦截改方法，然后反回该值
                 .intercept(FixedValue.value("Hello World!"))
                 .make()
                 .load(getClass().getClassLoader())
@@ -47,7 +56,7 @@ public class ByteBuddyTest {
     }
 
     @Test
-    public void test_helloWorld() throws IllegalAccessException, InstantiationException {
+    public void testHelloWorld() throws IllegalAccessException, InstantiationException {
         DynamicType.Unloaded<Object> dynamicType = new ByteBuddy()
                 .subclass(Object.class)
                 .name("com.simple.classbytecode.bytebuddy.HelloWorld")
@@ -70,9 +79,13 @@ public class ByteBuddyTest {
     public void createClassHelloWorld() {
         DynamicType.Unloaded<?> dynamicType = new ByteBuddy()
                 .subclass(Object.class)
+                // 创建类的名称
                 .name("com.simple.classbytecode.bytebuddy.ByteBuddyHelloWorld")
+                // 定义的方法名称
                 .defineMethod("main", void.class, Modifier.PUBLIC + Modifier.STATIC)
+                // 该方法具备的参数
                 .withParameter(String[].class, "args")
+                // 拦截方法，这里是委托方法，上面对应的参数必须跟改委托方法对应，委托的类必须是public，委托之后会在生成类的main方法里面调用Hi.main
                 .intercept(MethodDelegation.to(Hi.class))
                 .make();
 
