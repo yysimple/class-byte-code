@@ -9,9 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.simple.classbytecode.bytebuddy.one</groupId>
-    <artifactId>byte-buddy-01</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>byte-buddy-demo</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
