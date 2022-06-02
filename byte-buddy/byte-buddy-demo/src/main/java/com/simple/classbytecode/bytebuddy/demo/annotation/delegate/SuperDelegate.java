@@ -1,5 +1,6 @@
-package com.simple.classbytecode.bytebuddy.demo.annotation;
+package com.simple.classbytecode.bytebuddy.demo.annotation.delegate;
 
+import com.simple.classbytecode.bytebuddy.demo.annotation.CommonMethod;
 import net.bytebuddy.implementation.bind.annotation.Super;
 
 /**
@@ -12,7 +13,7 @@ import net.bytebuddy.implementation.bind.annotation.Super;
  **/
 public class SuperDelegate {
 
-    public static String normal(String var1, @Super CommonMethod  commonMethod) {
+    public static String normal(String var1, @Super CommonMethod commonMethod) {
         System.out.println("invoke time:" + System.currentTimeMillis());
         return commonMethod.normal(var1);
     }

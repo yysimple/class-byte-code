@@ -29,7 +29,7 @@ public class MethodMonitor {
      * @DefaultCall：调用默认方法而非super的方法
      * @SuperCall：用于调用父类版本的方法
      * @Super：注入父类型对象，可以是接口，从而调用它的任何方法
-     * @RuntimeType：可以用在返回值、参数上，提示ByteBuddy禁用严格的类型检查
+     * @RuntimeType：可以用在返回值、参数上，提示ByteBuddy禁用严格的类型检查；否者这里需要提供对应的 static 和需要委托的类初方法名称之外相同的方法签名
      * @Empty：注入参数的类型的默认值
      * @StubValue：注入一个存根值。对于返回引用、void的方法，注入null；对于返回原始类型的方法，注入0
      * @FieldValue：注入被拦截对象的一个字段的值
