@@ -17,6 +17,7 @@
         <module>byte-buddy-demo</module>
         <module>byte-buddy-javaagent</module>
         <module>simple-rpc-agent</module>
+        <module>byte-buddy-jvm</module>
     </modules>
 
     <properties>
