@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author: WuChengXing
  * @create: 2022-06-02 10:06
  **/
-public class RedefineClazz {
+public class RedefineClazzTest {
 
     @Test
     public void testRedefineHelloWorld() throws IOException {
@@ -24,7 +24,7 @@ public class RedefineClazz {
                 // 需要重定义的类
                 .redefine(HelloWorld.class)
                 .make()
-                .saveIn(new File(RedefineClazz.class.getResource("/").getPath()));
+                .saveIn(new File(RedefineClazzTest.class.getResource("/").getPath()));
     }
 
     /**
