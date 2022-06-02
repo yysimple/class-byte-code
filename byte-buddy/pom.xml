@@ -15,6 +15,7 @@
     <modules>
         <module>byte-buddy-01</module>
         <module>byte-buddy-demo</module>
+        <module>byte-buddy-javaagent</module>
     </modules>
 
     <properties>
