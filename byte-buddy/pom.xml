@@ -18,6 +18,7 @@
         <module>byte-buddy-javaagent</module>
         <module>simple-rpc-agent</module>
         <module>byte-buddy-jvm</module>
+        <module>byte-buddy-trace</module>
     </modules>
 
     <properties>
