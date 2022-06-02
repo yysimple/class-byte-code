@@ -20,7 +20,7 @@ public class MethodDelegateTest {
         NormalClazz clazz = new ByteBuddy()
                 .subclass(NormalClazz.class)
                 .method(ElementMatchers.named("oneParam").or(ElementMatchers.named("twoParam")))
-                // 被委托的实现必须是一个static的方法；NormalClazz中的方法在DelegateClazz中必须全部有实现，方法名可以不一样，参数列表必须一致
+                // 被委托的实现必须是一个static的方法；NormalClazz中的方法在DelegateClazz中有相似的方法，方法名可以不一样，参数列表必须一致
                 .intercept(MethodDelegation.to(DelegateClazz.class))
                 .make()
                 .load(ClassLoader.getSystemClassLoader())
