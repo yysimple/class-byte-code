@@ -1,5 +1,7 @@
 package com.simple.test;
 
+import com.simple.test.hello.HelloWorld;
+
 /**
  * 项目: class-byte-code
  * <p>
@@ -11,6 +13,14 @@ package com.simple.test;
 public class AgentMainTraceTest {
 
     public static void main(String[] args) {
+        AgentMainTraceTest test = new AgentMainTraceTest();
+        test.helloWorld();
+        test.hashCode();
+
+        HelloWorld helloWorld = new HelloWorld();
+        helloWorld.helloWorld();
+
+
 
         //线程一
         new Thread(() -> new AgentMainTraceTest().http_lt1()).start();
@@ -34,5 +44,14 @@ public class AgentMainTraceTest {
 
     public void http_lt3() {
         System.out.println("测试结果：hi3");
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    public String helloWorld(){
+        return "111";
     }
 }

@@ -9,6 +9,9 @@ import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.Instrumentation;
 
+import static net.bytebuddy.matcher.ElementMatchers.isStatic;
+import static net.bytebuddy.matcher.ElementMatchers.nameStartsWith;
+
 /**
  * 项目: class-byte-code
  * <p>
@@ -18,6 +21,23 @@ import java.lang.instrument.Instrumentation;
  * @create: 2022-06-03 00:29
  **/
 public class AgentMain {
+
+    public static AgentBuilder.RawMatcher.ForElementMatchers ignorePrefixRules() {
+        return new AgentBuilder.RawMatcher.ForElementMatchers(
+                nameStartsWith("net.bytebuddy.")
+                        .or(nameStartsWith("org.springframework."))
+                        .or(nameStartsWith("java.lang."))
+                        .or(nameStartsWith("com.simple.test.hello"))
+        );
+    }
+
+    public static AgentBuilder.RawMatcher.ForElementMatchers ignoreMethods() {
+        return new AgentBuilder.RawMatcher.ForElementMatchers(
+                ElementMatchers.named("helloWorld")
+                        .or(isStatic())
+                        .or(ElementMatchers.named("hashCode"))
+        );
+    }
 
     //JVM 首先尝试在代理类上调用以下方法
     public static void premain(String agentArgs, Instrumentation inst) {
@@ -31,11 +51,15 @@ public class AgentMain {
                     Advice.to(MethodAdvice.class)
                             .on(ElementMatchers.isMethod()
                                     .and(ElementMatchers.any())
+                                    .and(ElementMatchers.not((ElementMatchers.named("hashCode"))))
+                                    .and(ElementMatchers.not((ElementMatchers.named("Object"))))
+                                    .and(ElementMatchers.not((ElementMatchers.named("toString"))))
                                     .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")))));
             return builder;
         };
 
         agentBuilder = agentBuilder
+                .ignore(ignorePrefixRules())
                 .type(ElementMatchers.nameStartsWith("com.simple.test"))
                 .transform(transformer)
                 .asDecorator();
