@@ -15,6 +15,7 @@ public class TrackManager {
     private static final ThreadLocal<Stack<String>> track = new ThreadLocal<>();
 
     private static String createSpan() {
+        // 从线程缓存中拿到此次调用栈
         Stack<String> stack = track.get();
         if (stack == null) {
             stack = new Stack<>();
@@ -52,10 +53,12 @@ public class TrackManager {
     }
 
     public static String getCurrentSpan() {
+        // 获取当前线程的调用栈
         Stack<String> stack = track.get();
         if (stack == null || stack.isEmpty()) {
             return null;
         }
+        // 不为空则将栈顶元素弹出
         return stack.peek();
     }
 }

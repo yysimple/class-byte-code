@@ -18,11 +18,14 @@ public class MethodAdvice {
 
     @Advice.OnMethodEnter()
     public static void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName) {
+        // 获取当前栈顶的traceId
         String traceId = TrackManager.getCurrentSpan();
         if (null == traceId) {
+            // 如果不存在，则将新生成的调用id放入到线程缓存
             traceId = UUID.randomUUID().toString();
             TrackContext.setTraceId(traceId);
         }
+        // 将traceId存入到缓存
         String entrySpan = TrackManager.createEntrySpan();
         System.out.println("链路追踪：" + entrySpan + " " + className + "." + methodName);
 

@@ -16,9 +16,9 @@ public class AgentMainTraceTest {
         new Thread(() -> new AgentMainTraceTest().http_lt1()).start();
 
         //线程二
-        new Thread(() -> {
-            new AgentMainTraceTest().http_lt1();
-        }).start();
+//        new Thread(() -> {
+//            new AgentMainTraceTest().http_lt1();
+//        }).start();
     }
 
 
