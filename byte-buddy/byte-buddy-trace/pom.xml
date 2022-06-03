@@ -43,6 +43,27 @@
 
     <build>
         <plugins>
+            <!-- 将byte-buddy打包到Agent中 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>net.bytebuddy:byte-buddy:jar:</include>
+                            <include>net.bytebuddy:byte-buddy-agent:jar:</include>
+                        </includes>
+                    </artifactSet>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

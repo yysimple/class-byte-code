@@ -60,7 +60,7 @@ public class AgentMain {
 
         agentBuilder = agentBuilder
                 .ignore(ignorePrefixRules())
-                .type(ElementMatchers.nameStartsWith("com.simple.test"))
+                .type(ElementMatchers.nameStartsWith(agentArgs))
                 .transform(transformer)
                 .asDecorator();
 

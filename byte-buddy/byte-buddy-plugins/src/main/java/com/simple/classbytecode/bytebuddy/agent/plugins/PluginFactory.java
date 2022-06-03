@@ -22,6 +22,6 @@ public class PluginFactory {
         //链路监控
         pluginGroup.add(new TracePlugin());
         //Jvm监控
-        pluginGroup.add(new JvmPlugin());
+        // pluginGroup.add(new JvmPlugin());
     }
 }
