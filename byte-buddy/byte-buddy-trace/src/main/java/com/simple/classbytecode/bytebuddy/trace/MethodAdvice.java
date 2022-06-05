@@ -27,6 +27,7 @@ public class MethodAdvice {
         }
         // 将traceId存入到缓存
         String entrySpan = TrackManager.createEntrySpan();
+        System.out.println("remote trace id: " + CommonThreadLocal.traceThreadLocal.get().getTraceId());
         System.out.println("链路追踪：" + entrySpan + " " + className + "." + methodName);
 
     }

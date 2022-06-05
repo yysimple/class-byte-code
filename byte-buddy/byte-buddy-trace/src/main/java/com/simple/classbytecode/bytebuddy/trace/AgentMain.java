@@ -60,6 +60,7 @@ public class AgentMain {
 
         agentBuilder = agentBuilder
                 .ignore(ignorePrefixRules())
+                // 指定需要拦截的类 "com.simple.test.AgentTest"
                 .type(ElementMatchers.nameStartsWith(agentArgs))
                 .transform(transformer)
                 .asDecorator();

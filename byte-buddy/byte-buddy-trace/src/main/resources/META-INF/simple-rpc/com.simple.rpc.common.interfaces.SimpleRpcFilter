@@ -1,0 +1,2 @@
+agent-remote-invoker-filter=com.simple.classbytecode.bytebuddy.trace.filter.TraceBeforeFilter
+agent-invoker-filter=com.simple.classbytecode.bytebuddy.trace.filter.TraceRemoteInvokeBeforeFilter
