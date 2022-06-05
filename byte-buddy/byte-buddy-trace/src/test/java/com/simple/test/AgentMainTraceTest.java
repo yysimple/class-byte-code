@@ -14,16 +14,7 @@ public class AgentMainTraceTest {
 
     public static void main(String[] args) {
         AgentMainTraceTest test = new AgentMainTraceTest();
-        test.helloWorld();
-        test.hashCode();
-
-        HelloWorld helloWorld = new HelloWorld();
-        helloWorld.helloWorld();
-
-
-
-        //线程一
-        new Thread(() -> new AgentMainTraceTest().http_lt1()).start();
+        test.http_lt1();
 
         //线程二
 //        new Thread(() -> {

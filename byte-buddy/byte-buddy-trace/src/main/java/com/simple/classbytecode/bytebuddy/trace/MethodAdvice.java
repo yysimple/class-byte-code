@@ -4,6 +4,7 @@ import com.simple.classbytecode.bytebuddy.trace.track.TrackContext;
 import com.simple.classbytecode.bytebuddy.trace.track.TrackManager;
 import net.bytebuddy.asm.Advice;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -27,7 +28,8 @@ public class MethodAdvice {
         }
         // 将traceId存入到缓存
         String entrySpan = TrackManager.createEntrySpan();
-        System.out.println("remote trace id: " + CommonThreadLocal.traceThreadLocal.get().getTraceId());
+        String contextTraceId = Objects.isNull(CommonThreadLocal.traceThreadLocal.get()) ? "" : CommonThreadLocal.traceThreadLocal.get().getTraceId();
+        System.out.println("remote trace id: " + contextTraceId);
         System.out.println("链路追踪：" + entrySpan + " " + className + "." + methodName);
 
     }
