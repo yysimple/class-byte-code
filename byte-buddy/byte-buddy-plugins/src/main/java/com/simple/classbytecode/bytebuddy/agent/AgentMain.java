@@ -3,6 +3,7 @@ package com.simple.classbytecode.bytebuddy.agent;
 import com.simple.classbytecode.bytebuddy.agent.plugins.IPlugin;
 import com.simple.classbytecode.bytebuddy.agent.plugins.InterceptPoint;
 import com.simple.classbytecode.bytebuddy.agent.plugins.PluginFactory;
+import com.simple.classbytecode.bytebuddy.agent.util.AgentLog;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
@@ -24,9 +25,7 @@ public class AgentMain {
 
     //JVM 首先尝试在代理类上调用以下方法
     public static void premain(String agentArgs, Instrumentation inst) {
-
-        System.out.println("基于javaagent链路追踪｛源码微信公众号：bugstack虫洞栈｝");
-        System.out.println("==========================================================\r\n");
+        AgentLog.info("====== agent start =====");
         AgentBuilder agentBuilder = new AgentBuilder.Default();
 
         List<IPlugin> pluginGroup = PluginFactory.pluginGroup;

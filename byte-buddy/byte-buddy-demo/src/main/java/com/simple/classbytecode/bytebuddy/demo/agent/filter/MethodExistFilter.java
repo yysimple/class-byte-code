@@ -10,7 +10,7 @@ import net.bytebuddy.asm.Advice;
  * @author: WuChengXing
  * @create: 2022-06-06 21:27
  **/
-public class MethodEnterFilter {
+public class MethodExistFilter {
 
     @Advice.OnMethodEnter(skipOn = Advice.OnDefaultValue.class)
     public static int enter() {

@@ -18,4 +18,9 @@ public class CommonTestClazz {
         System.out.println("=== 没有返回值的 ===");
     }
 
+    public int testInt() {
+        System.out.println("=== int 返回 0 ===");
+        return 1;
+    }
+
 }

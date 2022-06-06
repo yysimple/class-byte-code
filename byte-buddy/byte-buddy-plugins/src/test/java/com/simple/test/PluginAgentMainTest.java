@@ -1,5 +1,7 @@
 package com.simple.test;
 
+import org.junit.Test;
+
 /**
  * 项目: class-byte-code
  * <p>
@@ -10,16 +12,10 @@ package com.simple.test;
  **/
 public class PluginAgentMainTest {
 
-    public static void main(String[] args) {
-
-        //线程一
-        new Thread(() -> new PluginAgentMainTest().http_lt1("哪咤")).start();
-
-        //线程二
-        new Thread(() -> {
-            new PluginAgentMainTest().http_lt2("悟空");
-        }).start();
-
+    @Test
+    public void testPlugins() {
+        PluginAgentMainTest pluginAgentMainTest = new PluginAgentMainTest();
+        pluginAgentMainTest.http_lt1("test");
     }
 
     public void http_lt1(String name) {
@@ -30,6 +26,7 @@ public class PluginAgentMainTest {
         }
         System.out.println("测试结果：hi1 " + name);
         http_lt2(name);
+        http_lt4(name);
     }
 
     public void http_lt2(String name) {
@@ -49,5 +46,24 @@ public class PluginAgentMainTest {
             e.printStackTrace();
         }
         System.out.println("测试结果：hi3 " + name);
+    }
+
+    public void http_lt4(String name) {
+        try {
+            Thread.sleep((long) (Math.random() * 500));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("测试结果：hi4 " + name);
+        http_lt5(name);
+    }
+
+    public void http_lt5(String name) {
+        try {
+            Thread.sleep((long) (Math.random() * 500));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("测试结果：hi5 " + name);
     }
 }

@@ -2,6 +2,7 @@ package com.simple.classbytecode.bytebuddy.agent.plugins.impl.trace;
 
 import com.alibaba.fastjson.JSON;
 import com.simple.classbytecode.bytebuddy.agent.track.Span;
+import com.simple.classbytecode.bytebuddy.agent.track.SpanContext;
 import com.simple.classbytecode.bytebuddy.agent.track.TrackContext;
 import com.simple.classbytecode.bytebuddy.agent.track.TrackManager;
 import com.simple.classbytecode.bytebuddy.agent.util.AgentLog;
@@ -26,6 +27,7 @@ public class TraceAdvice {
         if (null == currentSpan) {
             String traceId = UUID.randomUUID().toString();
             TrackContext.setTraceId(traceId);
+            SpanContext.setSpanId("0");
         }
         Span entrySpan = TrackManager.createEntrySpan();
         AgentLog.info("进入方法，当前Span信息：{}", JSON.toJSONString(entrySpan));

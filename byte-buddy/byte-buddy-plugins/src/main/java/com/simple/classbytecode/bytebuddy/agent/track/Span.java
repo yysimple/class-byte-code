@@ -12,6 +12,10 @@ import java.util.Date;
  **/
 public class Span {
 
+    private String spanId;
+
+    private Integer level;
+
     private String traceId;
 
     private Date enterTime;
@@ -21,6 +25,13 @@ public class Span {
 
     public Span(String traceId) {
         this.traceId = traceId;
+        this.enterTime = new Date();
+    }
+
+    public Span(String traceId, String spanId, Integer level) {
+        this.traceId = traceId;
+        this.spanId = spanId;
+        this.level = level;
         this.enterTime = new Date();
     }
 
@@ -45,10 +56,28 @@ public class Span {
         this.enterTime = enterTime;
     }
 
+    public String getSpanId() {
+        return spanId;
+    }
+
+    public void setSpanId(String spanId) {
+        this.spanId = spanId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     @Override
     public String toString() {
         return "Span{" +
-                "traceId='" + traceId + '\'' +
+                "spanId='" + spanId + '\'' +
+                ", level=" + level +
+                ", traceId='" + traceId + '\'' +
                 ", enterTime=" + enterTime +
                 '}';
     }

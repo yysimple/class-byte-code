@@ -1,6 +1,7 @@
 package com.simple.classbytecode.bytebuddy.demo.agent;
 
 import com.simple.classbytecode.bytebuddy.demo.agent.filter.MethodEnterFilter;
+import com.simple.classbytecode.bytebuddy.demo.agent.filter.MethodExistFilter;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
@@ -27,10 +28,25 @@ public class AgentMain {
         // 调用构造器
         Object o = buildClazz.getDeclaredConstructor().newInstance();
         buildClazz.getMethod("testVoid").invoke(o);
+        buildClazz.getMethod("testInt").invoke(o);
+    }
+
+    public void defineNewClass01() throws Exception {
+        // 构建一个新类
+        Class<?> buildClazz = new ByteBuddy()
+                .redefine(CommonTestClazz.class)
+                .visit(Advice.to(MethodExistFilter.class).on(ElementMatchers.not(ElementMatchers.isConstructor())))
+                .make()
+                .load(ClassLoadingStrategy.BOOTSTRAP_LOADER, ClassLoadingStrategy.Default.WRAPPER)
+                .getLoaded();
+        // 调用构造器
+        Object o = buildClazz.getDeclaredConstructor().newInstance();
+        buildClazz.getMethod("testVoid").invoke(o);
+        buildClazz.getMethod("testInt").invoke(o);
     }
 
     public static void main(String[] args) throws Exception {
         AgentMain agentMain = new AgentMain();
-        agentMain.defineNewClass();
+        agentMain.defineNewClass01();
     }
 }

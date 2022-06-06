@@ -20,11 +20,14 @@ public class TrackManager {
             track.set(stack);
         }
         String traceId;
+        String spanId;
         if (stack.isEmpty()) {
             traceId = TrackContext.getTraceId();
+            spanId = SpanContext.getSpanId();
             if (traceId == null) {
                 traceId = "nvl";
                 TrackContext.setTraceId(traceId);
+                SpanContext.setSpanId("0");
             }
         } else {
             Span span = stack.peek();
@@ -57,6 +60,15 @@ public class TrackManager {
             return null;
         }
         return stack.peek();
+    }
+
+    public static Integer calSpanLevel(String spanId) {
+        String[] split = spanId.split(".");
+        if (split.length < 1) {
+            return 0;
+        } else {
+
+        }
     }
 
 }
