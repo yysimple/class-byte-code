@@ -13,7 +13,7 @@ import com.simple.rpc.core.filter.InvokeBeforeFilter;
  * @author: WuChengXing
  * @create: 2022-06-05 18:33
  **/
-public class TraceRemoteInvokeBeforeFilter implements InvokeBeforeFilter {
+public class ConsumerInvokeBeforeFilter implements InvokeBeforeFilter {
 
     @Override
     public SimpleRpcContext invokeBefore(SimpleRpcContext simpleRpcContext) {

@@ -1,5 +1,7 @@
 package com.simple.classbytecode.bytebuddy.trace.track;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.Stack;
 
 /**
@@ -53,6 +55,9 @@ public class TrackManager {
     }
 
     public static String getCurrentSpan() {
+        if (!StrUtil.isBlank(TrackContext.getTraceId())) {
+            return TrackContext.getTraceId();
+        }
         // 获取当前线程的调用栈
         Stack<String> stack = track.get();
         if (stack == null || stack.isEmpty()) {

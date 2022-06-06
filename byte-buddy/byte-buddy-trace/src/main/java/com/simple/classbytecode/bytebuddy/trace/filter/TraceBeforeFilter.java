@@ -1,10 +1,9 @@
 package com.simple.classbytecode.bytebuddy.trace.filter;
 
-import com.simple.classbytecode.bytebuddy.trace.CommonThreadLocal;
+import com.simple.classbytecode.bytebuddy.trace.track.TrackContext;
 import com.simple.rpc.common.interfaces.entity.InvokeFilterInfo;
 import com.simple.rpc.common.interfaces.entity.SimpleRpcContext;
 import com.simple.rpc.core.filter.RemoteInvokeBeforeFilter;
-import com.simple.rpc.core.network.message.Request;
 
 /**
  * 项目: class-byte-code
@@ -18,7 +17,7 @@ public class TraceBeforeFilter implements RemoteInvokeBeforeFilter {
 
     @Override
     public SimpleRpcContext invokeBefore(SimpleRpcContext simpleRpcContext) {
-        CommonThreadLocal.traceThreadLocal.set(simpleRpcContext);
+        TrackContext.setTraceId(simpleRpcContext.getTraceId());
         return simpleRpcContext;
     }
 
