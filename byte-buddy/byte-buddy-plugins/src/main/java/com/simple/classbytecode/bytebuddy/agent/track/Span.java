@@ -44,4 +44,12 @@ public class Span {
     public void setEnterTime(Date enterTime) {
         this.enterTime = enterTime;
     }
+
+    @Override
+    public String toString() {
+        return "Span{" +
+                "traceId='" + traceId + '\'' +
+                ", enterTime=" + enterTime +
+                '}';
+    }
 }

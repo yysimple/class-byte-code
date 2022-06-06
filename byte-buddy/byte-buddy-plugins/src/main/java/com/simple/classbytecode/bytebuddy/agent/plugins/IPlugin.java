@@ -10,12 +10,24 @@ package com.simple.classbytecode.bytebuddy.agent.plugins;
  **/
 public interface IPlugin {
 
-    //名称
+    /**
+     * 名称
+     *
+     * @return
+     */
     String name();
 
-    //监控点
+    /**
+     * 监控点
+     *
+     * @return
+     */
     InterceptPoint[] buildInterceptPoint();
 
-    //拦截器类
+    /**
+     * 拦截器类
+     *
+     * @return
+     */
     Class adviceClass();
 }

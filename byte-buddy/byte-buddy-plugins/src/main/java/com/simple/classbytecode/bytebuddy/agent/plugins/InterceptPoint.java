@@ -14,9 +14,17 @@ import net.bytebuddy.matcher.ElementMatcher;
  **/
 public interface InterceptPoint {
 
-    //类匹配规则
+    /**
+     * 类匹配规则
+     *
+     * @return
+     */
     ElementMatcher<TypeDescription> buildTypesMatcher();
 
-    //方法匹配规则
+    /**
+     * 方法匹配规则
+     *
+     * @return
+     */
     ElementMatcher<MethodDescription> buildMethodsMatcher();
 }
