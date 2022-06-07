@@ -24,22 +24,32 @@ public class TraceAdvice {
     public static void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName) {
         AgentLog.info("进入方法，类方法信息：{}", className + "#" + methodName);
         Span currentSpan = TrackManager.getCurrentSpan();
+        String traceId = "";
         if (null == currentSpan) {
-            String traceId = UUID.randomUUID().toString();
+            traceId = UUID.randomUUID().toString();
             TrackContext.setTraceId(traceId);
-            SpanContext.setSpanId("0");
         }
-        Span entrySpan = TrackManager.createEntrySpan();
-        AgentLog.info("进入方法，当前Span信息：{}", JSON.toJSONString(entrySpan));
+        Span spanContext = SpanContext.getSpan();
+        if (spanContext == null) {
+            spanContext = new Span(traceId, "0", 0);
+        } else {
+            spanContext = SpanContext.calEntrySpan(spanContext);
+        }
+        SpanContext.setSpan(spanContext);
+        TrackManager.createEntrySpan();
+        AgentLog.info("进入方法，当前Span信息：{}", JSON.toJSONString(spanContext));
     }
 
     @Advice.OnMethodExit()
     public static void exit(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName) {
         AgentLog.info("退出方法，类方法信息：{}", className + "#" + methodName);
+        Span spanContext = SpanContext.getSpan();
+        spanContext = SpanContext.calExitSpan(spanContext);
+        SpanContext.setSpan(spanContext);
         Span exitSpan = TrackManager.getExitSpan();
         if (null == exitSpan) {
             return;
         }
-        AgentLog.info("推出方法，当前Span信息：{}", JSON.toJSONString(exitSpan));
+        AgentLog.info("推出方法，当前Span信息：{}", JSON.toJSONString(spanContext));
     }
 }

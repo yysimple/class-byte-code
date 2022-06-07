@@ -1,5 +1,6 @@
 package com.simple.test;
 
+import com.simple.classbytecode.bytebuddy.agent.track.Span;
 import org.junit.Test;
 
 /**
@@ -65,5 +66,15 @@ public class PluginAgentMainTest {
             e.printStackTrace();
         }
         System.out.println("测试结果：hi5 " + name);
+    }
+
+    @Test
+    public void testSpanCal() {
+        String spanId = "0.1.1.1";
+
+        Integer newLevel = Integer.valueOf(spanId.substring(spanId.lastIndexOf(".") + 1));
+        System.out.println(newLevel);
+        String newSpanId = spanId.substring(0, spanId.lastIndexOf("."));
+        System.out.println(newSpanId);
     }
 }
