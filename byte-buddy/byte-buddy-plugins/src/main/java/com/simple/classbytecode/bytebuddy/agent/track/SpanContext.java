@@ -25,11 +25,14 @@ public class SpanContext {
     }
 
     public static Span calEntrySpan(Span spanContext) {
+        String currentSpan = spanContext.getSpanId();
+        Integer newLevel = spanContext.getLevel();
+        String newSpanId = currentSpan + "." + (newLevel + 1);
+        if ("0".equals(currentSpan)) {
+            newLevel = 0;
+        }
         String traceId = spanContext.getTraceId();
-        String spanId = spanContext.getSpanId();
-        Integer level = spanContext.getLevel();
-        String newSpanId = spanId + "." + (level + 1);
-        return new Span(traceId, newSpanId, level);
+        return new Span(traceId, newSpanId, newLevel);
     }
 
     public static Span calExitSpan(Span spanContext) {
