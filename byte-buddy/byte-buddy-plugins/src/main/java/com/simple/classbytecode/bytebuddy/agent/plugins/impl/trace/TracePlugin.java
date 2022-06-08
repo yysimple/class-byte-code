@@ -28,7 +28,7 @@ public class TracePlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("com.simple.test")
+                        return ElementMatchers.nameStartsWith("com.simple.rpc")
                         .and(ElementMatchers.not(ElementMatchers.nameStartsWith("org.slf4j")));
                     }
 

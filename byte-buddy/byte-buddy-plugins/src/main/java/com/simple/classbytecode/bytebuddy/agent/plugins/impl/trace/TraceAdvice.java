@@ -31,7 +31,7 @@ public class TraceAdvice {
         }
         Span spanContext = SpanContext.getSpan();
         if (spanContext == null) {
-            spanContext = new Span(traceId, "0", 0);
+            spanContext = new Span(traceId, "0", 0, 1);
         } else {
             spanContext = SpanContext.calEntrySpan(spanContext);
         }

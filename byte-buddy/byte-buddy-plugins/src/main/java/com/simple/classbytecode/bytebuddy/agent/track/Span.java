@@ -20,6 +20,11 @@ public class Span {
 
     private Date enterTime;
 
+    /**
+     * 1=进入，2=退出
+     */
+    private Integer enterOrExit;
+
     public Span() {
     }
 
@@ -28,10 +33,11 @@ public class Span {
         this.enterTime = new Date();
     }
 
-    public Span(String traceId, String spanId, Integer level) {
+    public Span(String traceId, String spanId, Integer level, Integer enterOrExit) {
         this.traceId = traceId;
         this.spanId = spanId;
         this.level = level;
+        this.enterOrExit = enterOrExit;
         this.enterTime = new Date();
     }
 
@@ -72,6 +78,14 @@ public class Span {
         this.level = level;
     }
 
+    public Integer getEnterOrExit() {
+        return enterOrExit;
+    }
+
+    public void setEnterOrExit(Integer enterOrExit) {
+        this.enterOrExit = enterOrExit;
+    }
+
     @Override
     public String toString() {
         return "Span{" +
@@ -79,6 +93,7 @@ public class Span {
                 ", level=" + level +
                 ", traceId='" + traceId + '\'' +
                 ", enterTime=" + enterTime +
+                ", enterOrExit=" + enterOrExit +
                 '}';
     }
 }
