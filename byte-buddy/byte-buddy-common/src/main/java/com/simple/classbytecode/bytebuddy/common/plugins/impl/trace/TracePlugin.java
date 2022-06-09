@@ -1,11 +1,15 @@
 package com.simple.classbytecode.bytebuddy.common.plugins.impl.trace;
 
-import com.simple.classbytecode.bytebuddy.agent.plugins.IPlugin;
-import com.simple.classbytecode.bytebuddy.agent.plugins.InterceptPoint;
+import com.simple.classbytecode.bytebuddy.common.constant.AgentConstant;
+import com.simple.classbytecode.bytebuddy.common.plugins.IPlugin;
+import com.simple.classbytecode.bytebuddy.common.plugins.InterceptPoint;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 项目: class-byte-code
@@ -19,27 +23,14 @@ public class TracePlugin implements IPlugin {
 
     @Override
     public String name() {
-        return "trace";
+        return AgentConstant.PLUGIN_TRACE;
     }
 
     @Override
-    public InterceptPoint[] buildInterceptPoint() {
-        return new InterceptPoint[]{
-                new InterceptPoint() {
-                    @Override
-                    public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("com.simple.rpc").or(ElementMatchers.nameStartsWith("com.simple.test"))
-                        .and(ElementMatchers.not(ElementMatchers.nameStartsWith("org.slf4j")));
-                    }
-
-                    @Override
-                    public ElementMatcher<MethodDescription> buildMethodsMatcher() {
-                        return ElementMatchers.isMethod()
-                                .and(ElementMatchers.any())
-                                .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")));
-                    }
-                }
-        };
+    public List<InterceptPoint> buildInterceptPoint() {
+        List<InterceptPoint> interceptPoints = new ArrayList<>();
+        interceptPoints.add(new DefaultTraceIntercept());
+        return interceptPoints;
     }
 
     @Override

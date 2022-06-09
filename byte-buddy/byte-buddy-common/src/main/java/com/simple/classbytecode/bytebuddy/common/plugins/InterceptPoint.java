@@ -1,5 +1,6 @@
 package com.simple.classbytecode.bytebuddy.common.plugins;
 
+import com.simple.classbytecode.bytebuddy.common.entity.AgentParam;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -19,12 +20,12 @@ public interface InterceptPoint {
      *
      * @return
      */
-    ElementMatcher<TypeDescription> buildTypesMatcher();
+    ElementMatcher<TypeDescription> buildTypesMatcher(AgentParam agentParam);
 
     /**
      * 方法匹配规则
      *
      * @return
      */
-    ElementMatcher<MethodDescription> buildMethodsMatcher();
+    ElementMatcher<MethodDescription> buildMethodsMatcher(AgentParam agentParam);
 }

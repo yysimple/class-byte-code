@@ -1,6 +1,8 @@
 package com.simple.test;
 
-import com.simple.classbytecode.bytebuddy.agent.track.Span;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.simple.classbytecode.bytebuddy.common.entity.AgentParam;
 import org.junit.Test;
 
 /**
@@ -12,6 +14,15 @@ import org.junit.Test;
  * @create: 2022-06-03 00:49
  **/
 public class PluginAgentMainTest {
+
+    @Test
+    public void testArg(){
+        AgentParam agentParam = new AgentParam();
+        agentParam.setInterceptClassRule("com.simple.test");
+        agentParam.setPlugins("trace;jvm");
+        Object o = JSONObject.toJSON(agentParam);
+        System.out.println(o.toString());
+    }
 
     @Test
     public void testPlugins() {

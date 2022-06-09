@@ -1,11 +1,11 @@
 package com.simple.classbytecode.bytebuddy.common.plugins.impl.trace;
 
 import com.alibaba.fastjson.JSON;
-import com.simple.classbytecode.bytebuddy.agent.track.Span;
-import com.simple.classbytecode.bytebuddy.agent.track.SpanContext;
-import com.simple.classbytecode.bytebuddy.agent.track.TrackContext;
-import com.simple.classbytecode.bytebuddy.agent.track.TrackManager;
-import com.simple.classbytecode.bytebuddy.agent.util.AgentLog;
+import com.simple.classbytecode.bytebuddy.common.track.Span;
+import com.simple.classbytecode.bytebuddy.common.track.SpanContext;
+import com.simple.classbytecode.bytebuddy.common.track.TrackContext;
+import com.simple.classbytecode.bytebuddy.common.track.TrackManager;
+import com.simple.classbytecode.bytebuddy.common.util.AgentLog;
 import net.bytebuddy.asm.Advice;
 
 import java.util.UUID;

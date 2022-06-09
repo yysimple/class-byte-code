@@ -1,5 +1,7 @@
 package com.simple.classbytecode.bytebuddy.common.plugins;
 
+import java.util.List;
+
 /**
  * 项目: class-byte-code
  * <p>
@@ -22,7 +24,7 @@ public interface IPlugin {
      *
      * @return
      */
-    InterceptPoint[] buildInterceptPoint();
+    List<InterceptPoint> buildInterceptPoint();
 
     /**
      * 拦截器类
