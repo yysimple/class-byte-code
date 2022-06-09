@@ -23,6 +23,7 @@
         <maven.test.skip>true</maven.test.skip>
         <fastjson.version>1.2.67</fastjson.version>
         <junit.version>4.12</junit.version>
+        <logback.version>1.2.10</logback.version>
     </properties>
 
     <dependencyManagement>
@@ -36,6 +37,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

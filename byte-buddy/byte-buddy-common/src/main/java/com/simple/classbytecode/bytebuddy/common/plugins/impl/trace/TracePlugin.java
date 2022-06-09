@@ -1,4 +1,4 @@
-package com.simple.classbytecode.bytebuddy.agent.plugins.impl.trace;
+package com.simple.classbytecode.bytebuddy.common.plugins.impl.trace;
 
 import com.simple.classbytecode.bytebuddy.agent.plugins.IPlugin;
 import com.simple.classbytecode.bytebuddy.agent.plugins.InterceptPoint;

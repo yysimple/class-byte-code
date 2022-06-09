@@ -1,7 +1,5 @@
-package com.simple.classbytecode.bytebuddy.agent.plugins.impl.trace;
+package com.simple.classbytecode.bytebuddy.common.plugins.impl.jvm;
 
-import com.simple.classbytecode.bytebuddy.agent.plugins.IPlugin;
-import com.simple.classbytecode.bytebuddy.agent.plugins.InterceptPoint;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -15,11 +13,11 @@ import net.bytebuddy.matcher.ElementMatchers;
  * @author: WuChengXing
  * @create: 2022-06-03 00:48
  **/
-public class TracePlugin implements IPlugin {
+public class JvmPlugin implements IPlugin {
 
     @Override
     public String name() {
-        return "trace";
+        return "jvm";
     }
 
     @Override
@@ -28,8 +26,7 @@ public class TracePlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("com.simple.rpc").or(ElementMatchers.nameStartsWith("com.simple.test"))
-                        .and(ElementMatchers.not(ElementMatchers.nameStartsWith("org.slf4j")));
+                        return ElementMatchers.nameStartsWith("com.simple.test");
                     }
 
                     @Override
@@ -44,6 +41,6 @@ public class TracePlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return TraceAdvice.class;
+        return JvmAdvice.class;
     }
 }

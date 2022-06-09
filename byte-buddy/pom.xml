@@ -20,12 +20,13 @@
         <module>byte-buddy-jvm</module>
         <module>byte-buddy-trace</module>
         <module>byte-buddy-plugins</module>
+        <module>byte-buddy-common</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <bytebuddy.version>1.10.9</bytebuddy.version>
+        <bytebuddy.version>1.8.0</bytebuddy.version>
     </properties>
 
     <dependencyManagement>
