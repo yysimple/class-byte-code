@@ -47,12 +47,11 @@ public class AgentMain {
     public static ElementMatcher.Junction<TypeDescription> test() {
         List<String> strings = Arrays.asList("com.simple.test");
         List<ElementMatcher.Junction<TypeDescription>> values = new ArrayList<>();
-        ElementMatcher.Junction<TypeDescription> junction = ElementMatchers.nameStartsWith("");
+        final ElementMatcher.Junction<TypeDescription>[] junction = new ElementMatcher.Junction[]{ElementMatchers.nameStartsWith("")};
         strings.forEach(s -> {
-            junction.and(nameStartsWith(s));
-            values.add(junction);
+            junction[0] = junction[0].and(nameStartsWith(s));
         });
-        return ElementMatchers.anyOf(values);
+        return ElementMatchers.anyOf(junction[0]);
     }
 
     //JVM 首先尝试在代理类上调用以下方法
@@ -80,8 +79,8 @@ public class AgentMain {
                 .ignore(ignorePrefixRules())
                 // 指定需要拦截的类 "com.simple.test.AgentTest"
                 .type(test())
-                .transform(transformer)
-                .asDecorator();
+                        .transform(transformer)
+                        .asDecorator();
 
         //监听
         AgentBuilder.Listener listener = new AgentBuilder.Listener() {

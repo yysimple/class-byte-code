@@ -16,13 +16,13 @@ public class AgentParam {
     private String plugins;
 
     /**
-     * 规则相关  com.simple.agent;com.simple.test
+     * 规则相关  com.simple.agent
      */
     private String interceptClassRule;
     private String ignoreClassRule;
 
     /**
-     * main;hello;
+     * main
      */
     private String interceptMethodRule;
     private String ignoreMethodRule;

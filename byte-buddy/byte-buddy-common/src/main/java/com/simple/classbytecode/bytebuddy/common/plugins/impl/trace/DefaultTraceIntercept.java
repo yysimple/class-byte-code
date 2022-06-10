@@ -19,9 +19,8 @@ import net.bytebuddy.matcher.ElementMatchers;
 public class DefaultTraceIntercept implements InterceptPoint {
     @Override
     public ElementMatcher<TypeDescription> buildTypesMatcher(AgentParam agentParam) {
-        return ElementMatchers.anyOf(DefaultRules.containClassParam(agentParam))
-                .and(DefaultRules.defaultIgnoreClass())
-                .and(DefaultRules.ignoreClassParam(agentParam));
+        return ElementMatchers.nameStartsWith(agentParam.getInterceptClassRule())
+                .and(DefaultRules.defaultIgnoreClass());
     }
 
     @Override
