@@ -24,7 +24,7 @@ public interface IPlugin {
      *
      * @return
      */
-    List<InterceptPoint> buildInterceptPoint();
+    InterceptPoint[] buildInterceptPoint();
 
     /**
      * 拦截器类

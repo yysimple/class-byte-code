@@ -33,8 +33,6 @@ public class AgentMainTraceTest {
     public void http_lt2() {
         System.out.println("测试结果：hi2");
         http_lt3();
-        hashCode();
-        toString();
     }
 
     public void http_lt3() {

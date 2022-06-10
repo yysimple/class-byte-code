@@ -23,9 +23,8 @@ public class JvmPlugin implements IPlugin {
     }
 
     @Override
-    public List<InterceptPoint> buildInterceptPoint() {
-        List<InterceptPoint> interceptPoints = new ArrayList<>();
-        return interceptPoints;
+    public InterceptPoint[] buildInterceptPoint() {
+        return null;
     }
 
     @Override

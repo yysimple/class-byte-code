@@ -34,14 +34,14 @@ public class AgentMain {
         AgentParam agentParam = JSON.parseObject(agentArgs, AgentParam.class);
         List<IPlugin> pluginGroup = PluginFactory.listPlugins(agentParam);
         for (IPlugin plugin : pluginGroup) {
-            List<InterceptPoint> interceptPoints = plugin.buildInterceptPoint();
+            InterceptPoint[] interceptPoints = plugin.buildInterceptPoint();
             for (InterceptPoint point : interceptPoints) {
 
                 AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, javaModule) -> {
                     builder = builder.visit(Advice.to(plugin.adviceClass()).on(point.buildMethodsMatcher(agentParam)));
                     return builder;
                 };
-                agentBuilder = agentBuilder.type(ElementMatchers.nameStartsWith("com.simple.test")).transform(transformer).asDecorator();
+                agentBuilder = agentBuilder.type(point.buildTypesMatcher(agentParam)).transform(transformer).asDecorator();
             }
         }
 
