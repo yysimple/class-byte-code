@@ -15,6 +15,8 @@ public class AgentMainTraceTest {
     public static void main(String[] args) {
         AgentMainTraceTest test = new AgentMainTraceTest();
         test.http_lt1();
+        HelloWorld helloWorld = new HelloWorld();
+        helloWorld.helloWorld();
 
         //线程二
 //        new Thread(() -> {
@@ -31,6 +33,8 @@ public class AgentMainTraceTest {
     public void http_lt2() {
         System.out.println("测试结果：hi2");
         http_lt3();
+        hashCode();
+        toString();
     }
 
     public void http_lt3() {
@@ -40,6 +44,11 @@ public class AgentMainTraceTest {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "AgentMainTraceTest{}";
     }
 
     public String helloWorld(){

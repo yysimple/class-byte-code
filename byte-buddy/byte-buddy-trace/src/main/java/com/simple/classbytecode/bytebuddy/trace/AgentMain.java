@@ -2,12 +2,17 @@ package com.simple.classbytecode.bytebuddy.trace;
 
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
+import net.bytebuddy.description.NamedElement;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.Instrumentation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.nameStartsWith;
@@ -39,29 +44,42 @@ public class AgentMain {
         );
     }
 
+    public static ElementMatcher.Junction<TypeDescription> test() {
+        List<String> strings = Arrays.asList("com.simple.test");
+        List<ElementMatcher.Junction<TypeDescription>> values = new ArrayList<>();
+        ElementMatcher.Junction<TypeDescription> junction = ElementMatchers.nameStartsWith("");
+        strings.forEach(s -> {
+            junction.and(nameStartsWith(s));
+            values.add(junction);
+        });
+        return ElementMatchers.anyOf(values);
+    }
+
     //JVM 首先尝试在代理类上调用以下方法
     public static void premain(String agentArgs, Instrumentation inst) {
         System.out.println("基于javaagent链路追踪");
 
         AgentBuilder agentBuilder = new AgentBuilder.Default();
 
-
         AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, javaModule) -> {
             builder = builder.visit(
                     Advice.to(MethodAdvice.class)
                             .on(ElementMatchers.isMethod()
-                                    .and(ElementMatchers.any())
-                                    .and(ElementMatchers.not((ElementMatchers.named("hashCode"))))
-                                    .and(ElementMatchers.not((ElementMatchers.named("Object"))))
-                                    .and(ElementMatchers.not((ElementMatchers.named("toString"))))
-                                    .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")))));
+                                            .and(ElementMatchers.any()).and(ElementMatchers.not(
+                                            ElementMatchers.named("hashCode").or(ElementMatchers.named("toString"))
+                                            ))
+//                                    .and(ElementMatchers.not((ElementMatchers.named("hashCode"))))
+//                                    .and(ElementMatchers.not((ElementMatchers.named("Object"))))
+//                                    .and(ElementMatchers.not((ElementMatchers.named("toString"))))
+//                                    .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")))
+                            ));
             return builder;
         };
 
         agentBuilder = agentBuilder
                 .ignore(ignorePrefixRules())
                 // 指定需要拦截的类 "com.simple.test.AgentTest"
-                .type(ElementMatchers.nameStartsWith(agentArgs))
+                .type(test())
                 .transform(transformer)
                 .asDecorator();
 

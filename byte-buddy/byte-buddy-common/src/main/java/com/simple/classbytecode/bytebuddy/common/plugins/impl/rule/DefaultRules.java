@@ -6,7 +6,6 @@ import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
-import net.bytebuddy.matcher.NameMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +22,16 @@ public class DefaultRules {
 
     public static ElementMatcher.Junction<TypeDescription> defaultIgnoreClass() {
         return ElementMatchers.not(ElementMatchers.nameStartsWith("org.slf4j")
-                .and(ElementMatchers.nameStartsWith("com.simple.classbytecode.bytebuddy.common"))
-                .and(ElementMatchers.nameStartsWith("net.buddy"))
-                .and(ElementMatchers.nameStartsWith("java.lang"))
+                .or(ElementMatchers.nameStartsWith("com.simple.classbytecode.bytebuddy.common"))
+                .or(ElementMatchers.nameStartsWith("net.buddy"))
+                .or(ElementMatchers.nameStartsWith("java.lang"))
         );
     }
 
     public static ElementMatcher.Junction<MethodDescription> defaultIgnoreMethod() {
         return ElementMatchers.not(ElementMatchers.named("main")
-                .and(ElementMatchers.nameStartsWith("hashCode"))
-                .and(ElementMatchers.nameStartsWith("toString"))
+                .or(ElementMatchers.nameStartsWith("hashCode"))
+                .or(ElementMatchers.nameStartsWith("toString"))
         );
     }
 

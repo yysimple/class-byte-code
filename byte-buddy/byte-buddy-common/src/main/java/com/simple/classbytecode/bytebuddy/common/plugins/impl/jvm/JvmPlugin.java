@@ -3,11 +3,6 @@ package com.simple.classbytecode.bytebuddy.common.plugins.impl.jvm;
 import com.simple.classbytecode.bytebuddy.common.constant.AgentConstant;
 import com.simple.classbytecode.bytebuddy.common.plugins.IPlugin;
 import com.simple.classbytecode.bytebuddy.common.plugins.InterceptPoint;
-import com.sun.org.apache.bcel.internal.classfile.Constant;
-import net.bytebuddy.description.method.MethodDescription;
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.matcher.ElementMatcher;
-import net.bytebuddy.matcher.ElementMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
