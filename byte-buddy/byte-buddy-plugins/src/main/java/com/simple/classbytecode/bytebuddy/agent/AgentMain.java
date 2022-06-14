@@ -34,7 +34,7 @@ public class AgentMain {
         AgentParam agentParam = JSON.parseObject(agentArgs, AgentParam.class);
         List<IPlugin> pluginGroup = PluginFactory.listPlugins(agentParam);
         for (IPlugin plugin : pluginGroup) {
-            InterceptPoint[] interceptPoints = plugin.buildInterceptPoint();
+            List<InterceptPoint> interceptPoints = plugin.buildInterceptPoint();
             for (InterceptPoint point : interceptPoints) {
 
                 AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, javaModule) -> {

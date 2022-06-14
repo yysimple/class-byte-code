@@ -28,22 +28,27 @@ public class TracePlugin implements IPlugin {
     }
 
     @Override
-    public InterceptPoint[] buildInterceptPoint() {
+    public List<InterceptPoint> buildInterceptPoint() {
+        List<InterceptPoint> interceptPoints = new ArrayList<>();
+        interceptPoints.add(new DefaultTraceIntercept());
 //        InterceptPoint[] interceptPoints = new InterceptPoint[1];
 //        interceptPoints[0] = new DefaultTraceIntercept();
-        return new InterceptPoint[] {
-                new InterceptPoint() {
-                    @Override
-                    public ElementMatcher<TypeDescription> buildTypesMatcher(AgentParam agentParam) {
-                        return ElementMatchers.nameStartsWith("com.simple.test.PluginAgentMainTest");
-                    }
-
-                    @Override
-                    public ElementMatcher<MethodDescription> buildMethodsMatcher(AgentParam agentParam) {
-                        return ElementMatchers.not(ElementMatchers.named("main"));
-                    }
-                }
-        };
+        return interceptPoints;
+//        return new InterceptPoint[] {
+//                new InterceptPoint() {
+//                    @Override
+//                    public ElementMatcher<TypeDescription> buildTypesMatcher(AgentParam agentParam) {
+//                        return ElementMatchers.nameStartsWith(agentParam.getInterceptClassRule());
+//                    }
+//
+//                    @Override
+//                    public ElementMatcher<MethodDescription> buildMethodsMatcher(AgentParam agentParam) {
+//                        return ElementMatchers.isMethod()
+//                                .and(ElementMatchers.any())
+//                                .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")));
+//                    }
+//                }
+//        };
     }
 
     @Override

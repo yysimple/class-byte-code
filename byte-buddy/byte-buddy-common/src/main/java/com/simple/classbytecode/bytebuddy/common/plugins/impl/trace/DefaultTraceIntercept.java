@@ -25,8 +25,7 @@ public class DefaultTraceIntercept implements InterceptPoint {
     @Override
     public ElementMatcher<MethodDescription> buildMethodsMatcher(AgentParam agentParam) {
         return ElementMatchers.isMethod()
-                .and(DefaultRules.defaultIgnoreMethod())
-                .and(DefaultRules.containMethodParam(agentParam)
-                        .and(DefaultRules.ignoreMethodParam(agentParam)));
+                .and(ElementMatchers.any())
+                .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")));
     }
 }
