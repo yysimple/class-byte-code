@@ -1,6 +1,7 @@
 package com.simple.test;
 
 import com.simple.test.hello.HelloWorld;
+import com.simple.test.two.HelloTwo;
 
 /**
  * 项目: class-byte-code
@@ -17,6 +18,8 @@ public class AgentMainTraceTest {
         test.http_lt1();
         HelloWorld helloWorld = new HelloWorld();
         helloWorld.helloWorld();
+        HelloTwo helloTwo = new HelloTwo();
+        helloTwo.helloWorldTwo();
 
         //线程二
 //        new Thread(() -> {

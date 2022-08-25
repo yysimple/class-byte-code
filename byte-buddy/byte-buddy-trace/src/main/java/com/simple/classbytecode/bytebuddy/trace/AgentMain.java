@@ -1,5 +1,6 @@
 package com.simple.classbytecode.bytebuddy.trace;
 
+import com.simple.classbytecode.bytebuddy.trace.match.PrefixMatch;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.NamedElement;
@@ -33,7 +34,7 @@ public class AgentMain {
                 nameStartsWith("net.bytebuddy.")
                         .or(nameStartsWith("org.springframework."))
                         .or(nameStartsWith("java.lang."))
-                        .or(nameStartsWith("com.simple.test.hello"))
+                        //.or(nameStartsWith("com.simple.test.hello"))
         );
     }
 
@@ -61,8 +62,9 @@ public class AgentMain {
 
         AgentBuilder agentBuilder = new AgentBuilder.Default();
 
+        PrefixMatch prefixMatch = PrefixMatch.nameStartsWith("com.simple.test.hello","com.simple.test.two");
         agentBuilder.ignore(ignorePrefixRules())
-                .type(ElementMatchers.nameStartsWith("com.simple.test"))
+                .type(prefixMatch.buildJunction())
                 .transform(new Transformer())
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 .with(new Listener())

@@ -21,7 +21,6 @@
         <module>byte-buddy-trace</module>
         <module>byte-buddy-plugins</module>
         <module>byte-buddy-common</module>
-        <module>byte-buddy-agent</module>
     </modules>
 
     <properties>
