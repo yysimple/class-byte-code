@@ -10,6 +10,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.Instrumentation;
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,59 +61,54 @@ public class AgentMain {
 
         AgentBuilder agentBuilder = new AgentBuilder.Default();
 
-        AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, javaModule) -> {
-            builder = builder.visit(
+        agentBuilder.ignore(ignorePrefixRules())
+                .type(ElementMatchers.nameStartsWith("com.simple.test"))
+                .transform(new Transformer())
+                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+                .with(new Listener())
+                .installOn(inst);
+
+    }
+
+    private static class Transformer implements AgentBuilder.Transformer {
+        @Override
+        public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, ProtectionDomain protectionDomain) {
+            return builder.visit(
                     Advice.to(MethodAdvice.class)
                             .on(ElementMatchers.isMethod()
-                                            .and(ElementMatchers.any()).and(ElementMatchers.not(
+                                    .and(ElementMatchers.any()).and(ElementMatchers.not(
                                             ElementMatchers.named("hashCode").or(ElementMatchers.named("toString"))
-                                            ))
-//                                    .and(ElementMatchers.not((ElementMatchers.named("hashCode"))))
-//                                    .and(ElementMatchers.not((ElementMatchers.named("Object"))))
-//                                    .and(ElementMatchers.not((ElementMatchers.named("toString"))))
-//                                    .and(ElementMatchers.not(ElementMatchers.nameStartsWith("main")))
+                                    ))
                             ));
-            return builder;
-        };
+        }
+    }
 
-        agentBuilder = agentBuilder
-                .ignore(ignorePrefixRules())
-                // 指定需要拦截的类 "com.simple.test.AgentTest"
-                .type(test())
-                        .transform(transformer)
-                        .asDecorator();
+    private static class Listener implements AgentBuilder.Listener {
 
-        //监听
-        AgentBuilder.Listener listener = new AgentBuilder.Listener() {
-            @Override
-            public void onDiscovery(String s, ClassLoader classLoader, JavaModule javaModule, boolean b) {
+        @Override
+        public void onDiscovery(String s, ClassLoader classLoader, JavaModule javaModule, boolean b) {
 
-            }
+        }
 
-            @Override
-            public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, boolean b, DynamicType dynamicType) {
-                System.out.println("onTransformation：" + typeDescription);
-            }
+        @Override
+        public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, boolean b, DynamicType dynamicType) {
+            System.out.println("onTransformation：" + typeDescription);
+        }
 
-            @Override
-            public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, boolean b) {
+        @Override
+        public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, boolean b) {
 
-            }
+        }
 
-            @Override
-            public void onError(String s, ClassLoader classLoader, JavaModule javaModule, boolean b, Throwable throwable) {
+        @Override
+        public void onError(String s, ClassLoader classLoader, JavaModule javaModule, boolean b, Throwable throwable) {
 
-            }
+        }
 
-            @Override
-            public void onComplete(String s, ClassLoader classLoader, JavaModule javaModule, boolean b) {
+        @Override
+        public void onComplete(String s, ClassLoader classLoader, JavaModule javaModule, boolean b) {
 
-            }
-
-        };
-
-        agentBuilder.with(listener).installOn(inst);
-
+        }
     }
 
     //如果代理类没有实现上面的方法，那么 JVM 将尝试调用该方法
