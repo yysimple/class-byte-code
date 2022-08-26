@@ -14,7 +14,7 @@ import net.bytebuddy.matcher.ElementMatchers;
  **/
 public class PrefixMatch implements IndirectMatch {
 
-    private String[] prefixes;
+    private final String[] prefixes;
 
     private PrefixMatch(String... prefixes) {
         if (prefixes == null || prefixes.length == 0) {
